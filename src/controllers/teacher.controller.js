@@ -6,6 +6,7 @@ import { UpLoadOnCloudinary } from "../utils/Cloudinary.js";
 import { User } from "../model/user.model.js";
 
 const fileUpload = asyncHandler(async (req, res) => {
+
     const { teacherId } = req.params;
 
     const userRequest = await User.findById(teacherId);
@@ -32,8 +33,6 @@ const fileUpload = asyncHandler(async (req, res) => {
         throw new ApiError(500, "Cloudinary upload failed");
     }
 
-    console.log("Assignment Upload:", assignmentUpload.secure_url);
-    console.log("Course Outline Upload:", courseOutlineUpload.secure_url);
 
     const finalUpload = await Teacher.create({
         addAssigment: assignmentUpload.secure_url,

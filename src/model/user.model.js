@@ -54,7 +54,7 @@ const userSchema = new Schema(
 
         teacherProfile: [{
             teachingSubject: {
-                type: String,
+                type: [String],
                 required: true
             },
         }],

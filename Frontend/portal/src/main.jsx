@@ -21,6 +21,8 @@ import GetStudentResult from './Component/Student/GetStudentResult.jsx'
 import GetStudent from './Component/Admin/GetStudent.jsx'
 import StudentEnrollement from './Component/Admin/StudentEnrollement.jsx'
 import GetStudentEnrolled from './Component/Student/GetStudentEnrolled.jsx'
+import SubjectRegister  from './Component/SubjectRegister/SubjectRegister.jsx'
+import Assignment from './Component/Teacher/Assignment.jsx'
 
 
 const router = createBrowserRouter(
@@ -42,6 +44,8 @@ const router = createBrowserRouter(
       <Route path='/:userId/get-studentData' element={<GetStudent />} />
       <Route path='/:userId/:studentId/get-enrolled-student' element={<StudentEnrollement />} />
       <Route path='/get-enrolled-data' element={<GetStudentEnrolled/>} />
+      <Route path='/:userId/subject-register' element={<SubjectRegister/>} />
+      <Route path='/:teacherId/assignment' element={<Assignment/>} />
     </Route>
   )
 )

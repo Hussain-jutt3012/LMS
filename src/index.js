@@ -1,21 +1,25 @@
 import connectDB from "./db/index.js";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 import { app } from "./app.js";
 
-
-
-
 dotenv.config({
-    path: './.env'
-})
+    path: "./.env"
+});
 
+const PORT = process.env.PORT || 6000;
 
 connectDB()
-.then(()=> {
-    app.listen(process.env.PORT || 6000, () => {
-        console.log(`Server is runing at ${process.env.PORT}`)
+    .then(() => {
+        app.listen(PORT);
     })
-})
-.catch((error)=> {
-    console.log("MONGOODB Connection Failed !!!", error)
-})
+    .catch(() => {
+        process.exit(1);
+    });
+
+process.on("unhandledRejection", () => {
+    process.exit(1);
+});
+
+process.on("uncaughtException", () => {
+    process.exit(1);
+});

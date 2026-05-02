@@ -7,6 +7,7 @@ import { Subject } from "../model/subject.model.js";
 import { mongoose } from "mongoose";
 
 const attendanceMark = asyncHandler(async (req, res) => {
+
     const { userId } = req.params;
     const { subjectName, classname, section, department, semsterNo, } = req.body;
 
@@ -23,12 +24,17 @@ const attendanceMark = asyncHandler(async (req, res) => {
     const teachingSubject = userRequest.teacherProfile?.[0]?.teachingSubject;
     const teacherDepartment = userRequest.teacherDepartment;
 
-    if (subjectName !== teachingSubject ||
+    if (
+        !teachingSubject.includes(subjectName) ||
         !teacherDepartment.includes(department) ||
         !userRequest.classAssigned.includes(classname) ||
         !userRequest.sectionAssigned.includes(section) ||
-        !userRequest.semsterNoAssigned.includes(semsterNo)) {
-        throw new ApiError(403, "Unauthorized access to subject or class");
+        !userRequest.semsterNoAssigned.includes(semsterNo)
+    ) {
+        throw new ApiError(
+            403,
+            "You are not authorized to perform this action. The selected subject, department, class, section, or semester is not assigned to you."
+        );
     }
 
     // Check if subject exists
@@ -70,19 +76,19 @@ const attendanceMark = asyncHandler(async (req, res) => {
     ));
 });
 
-console.log("attendanceData:", attendanceMark)
 
 const markAttendance = asyncHandler(async (req, res) => {
     const { students, subjectName, name, department, section, classname, semesterNo, status, } = req.body;
     const { userId } = req.params;
 
     const userRequest = await User.findById(userId);
+    
     if (userRequest.role !== "teacher") {
         throw new ApiError("unauthorized person");
     }
 
     const todayStr = new Date().toISOString().split("T")[0];
-    console.log(todayStr)
+   
 
     const existing = await Attendance.findOne({
         subjectName,
@@ -104,7 +110,6 @@ const markAttendance = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Subject is not found")
     }
 
-    console.log(existing, "ExsitingData")
 
     // Create Attendance Data
     const attendance = await Attendance.create({
@@ -145,14 +150,11 @@ const editAttendance = asyncHandler(async (req, res) => {
         "students.users": studentId,
     })
 
-    console.log("dataRecord", attendanceRecords)
-
     if (!attendanceRecords) {
         throw new ApiError(404, "No attendance records found for this student");
     }
 
     const todayStr = new Date().toISOString().split("T")[0];
-    console.log(todayStr)
 
     const EditAttendance = await Attendance.findOneAndUpdate(
         {
@@ -189,7 +191,6 @@ const getAttendanceData = asyncHandler(async (req, res) => {
 
     const studentId = req.user._id;
 
-    console.log("StudentId", studentId)
 
     // Validate teacher
     const userRequest = await User.findById(studentId);
@@ -197,15 +198,13 @@ const getAttendanceData = asyncHandler(async (req, res) => {
         throw new ApiError(403, "Student not found or unauthorized");
     }
 
-    console.log(userRequest, "UserId")
-
     // Aggregate attendance summary
     const summary = await Attendance.aggregate([
         { $unwind: "$students" },
 
         {
             $match: {
-                "students.users": studentId   //  Filter by logged-in student
+                "students.users": studentId
             }
         },
 
@@ -254,7 +253,6 @@ const getAttendanceData = asyncHandler(async (req, res) => {
         { $unwind: { path: "$subjectDetails", preserveNullAndEmptyArrays: true } },
     ]);
 
-    console.log("summary", summary)
 
     return res.status(200).json(
         new ApiResponse(200, {

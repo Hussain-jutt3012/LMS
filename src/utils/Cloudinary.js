@@ -20,7 +20,6 @@ const UpLoadOnCloudinary = async (localFilePath) => {
         return response;
     } catch (error) {
         fs.unlinkSync(localFilePath)
-        console.log("File is SucessFully deleted on Cloudinary", unLink)
         return null
     }
 }

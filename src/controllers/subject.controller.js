@@ -18,6 +18,7 @@ const subjectRegister = asyncHandler(async (req, res) => {
         throw new ApiError(400, "User Id is not found")
     }
 
+
     if (userRequest.role !== "admin") {
         throw new ApiError(400, "You're not admin, you have no access")
     }

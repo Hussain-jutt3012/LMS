@@ -6,6 +6,7 @@ import { Enrollment } from "../model/enrollment.model.js";
 import mongoose from "mongoose";
 
 const UserFind = asyncHandler(async (req, res) => {
+    
     const { userId } = req.params;
     const { department, classname, section, semesterNo } = req.body;
 
@@ -59,12 +60,22 @@ const getEnrollment = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Unauthorized Request");
     }
 
+    const findEnrollment = await Enrollment.findOne({
+        studentId: new mongoose.Types.ObjectId(studentId),
+        department,
+        className: classname,
+        section,
+        semesterNo,
+    });
+
+    if (findEnrollment) {
+        throw new ApiError(400, "Student is already enrolled in this class/section/semester");
+    }
+
     const student = await User.findById(studentId);
     if (!student) {
         throw new ApiError(400, "Student is not found");
-    } else if (student) {
-        throw new ApiError(400, `student is already enrolled ${student._id}`)
-    }
+    }  
 
     const createEnrollment = await Enrollment.create({
         department,
@@ -76,7 +87,6 @@ const getEnrollment = asyncHandler(async (req, res) => {
         studentId: student._id,
     });
 
-    console.log("response", createEnrollment)
 
     return res
         .status(200)

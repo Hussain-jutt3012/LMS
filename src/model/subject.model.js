@@ -3,45 +3,44 @@ import mongoose, { Schema } from "mongoose";
 const subjectSchema = new Schema(
   {
     subjectName: {
-      type: String,
+      type: [String],
       required: true,
-      unique: true,   // ✅ each subject must have unique name
+      unique: true,  
       trim: true
     },
 
     subjectCode: {
-      type: String,
+      type: [String],
       required: true,
-      unique: true,   // ✅ subject codes must be unique
+      unique: true,   
       trim: true,
       uppercase: true
     },
 
     classname: {
-      type: [String],   // ✅ array of class names
+      type: [String],  
       required: true,
       trim: true
     },
 
     section: {
-      type: [String],   // ✅ array of sections
+      type: [String],  
       required: true,
       trim: true
     },
 
     semsterNo: {
-      type: [Number],   // ✅ array of semester numbers
+      type: [Number],  
       required: true
     },
 
     department: {
-      type: [String],   // ✅ array of departments
+      type: [String],  
       required: true
-      // ❌ removed unique:true
     },
 
     taughtBy: {
-      type: String,   // ✅ changed to array to allow multiple teachers
+      type: String,  
       required: true,
       trim: true
     },

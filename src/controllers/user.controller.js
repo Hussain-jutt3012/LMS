@@ -23,7 +23,8 @@ const generateAccessAndRefreshToken = async (userId) => {
 }
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { userId } = req.params;
+
+    const { userId } = req.params
 
     const {
         fullName,
@@ -77,11 +78,8 @@ const registerUser = asyncHandler(async (req, res) => {
     let teachclass = classAssigned
     let techsection = sectionAssigned
     let techsemster = semsterNoAssigned
+    let techsubject = teachingSubject
 
-    console.log(typeof techdepart, "tech")
-    console.log(typeof teachclass, "tech")
-    console.log(typeof techsection, "tech")
-    console.log(typeof techsemster, "tech")
 
     if (typeof teacherDepartment === "string") {
         techdepart = teacherDepartment.split(" ")
@@ -99,7 +97,9 @@ const registerUser = asyncHandler(async (req, res) => {
         techsemster = semsterNoAssigned.split(" ")
     }
 
-
+    if (typeof teachingSubject === "string") {
+        techsubject = teachingSubject.split(" ")
+    }
 
     // check existing user
     const existedUser = await User.findOne({
@@ -130,7 +130,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
         teacherProfile: role === "teacher"
             ? [{
-                teachingSubject
+                teachingSubject: techsubject
             }]
             : undefined,
 
@@ -167,11 +167,10 @@ const UserLogin = asyncHandler(async (req, res) => {
         throw new ApiError(404, "User is not found")
     }
 
-    const isPasswordCorrect = await user.isPasswordCorrect(password)
+    const ispasswordCorrect = await user.isPasswordCorrect(password)
 
-    console.log("password validation:", isPasswordCorrect)
 
-    if (!isPasswordCorrect) {
+    if (!ispasswordCorrect) {
         throw new ApiError(400, "password is incorrect")
     }
 

@@ -8,6 +8,7 @@ import { mongoose } from "mongoose";
 
 
 const resultRemarks = asyncHandler(async (req, res) => {
+
     const { userId } = req.params;
     const { subjectName, classname, section, department, semesterNo, } = req.body;
 
@@ -27,9 +28,10 @@ const resultRemarks = asyncHandler(async (req, res) => {
 
     const teachingSubject = userRequest.teacherProfile?.[0]?.teachingSubject;
 
-    if (subjectName !== teachingSubject) {
-        throw new ApiError(404, "Subject is not assigned to this teacher");
+    if (!teachingSubject?.includes(subjectName)) {
+        throw new ApiError(403, "Subject is not assigned to this teacher");
     }
+
 
     // Authorization checks
     if (!userRequest.teacherDepartment.includes(department)) {
@@ -53,7 +55,6 @@ const resultRemarks = asyncHandler(async (req, res) => {
         department,
     });
 
-    console.log(subjectFind, "Finding")
 
     if (!subjectFind) {
         throw new ApiError(400, "This subject is not assigned to you");
@@ -98,7 +99,6 @@ const resultMarked = asyncHandler(async (req, res) => {
 
     for (const students of results) {
         const findStudent = await Result.findOne({ "results.student": new mongoose.Types.ObjectId(students.student), subjectName: subjectName })
-        console.log(findStudent, "Result Finded Student")
         if (findStudent) {
             throw new ApiError(400, `Result is already Enterd ${findStudent.student} for this Student and Subject`)
         }

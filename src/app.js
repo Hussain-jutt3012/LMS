@@ -33,7 +33,7 @@ import EnrollementRouter from './routes/enrollement.routes.js'
 
 
 app.use("/api/v1/users", userRouter)
-app.use("/api/v1/subjectcreate", subjectRouter)
+app.use("/api/v1/subjects", subjectRouter)
 app.use('/api/v1/attendance', attendanceRouter)
 app.use('/api/v1/result', resultRouter)
 app.use('/api/v1/upload', uploadRouter)
