@@ -10,7 +10,6 @@ app.use(cors({
     methods:["GET", "POST", "DELETE", "PUT", "PATCH"],
     origin: [
     "http://localhost:5173",
-    "https://7fh3xh2l-5173.uks1.devtunnels.ms"
   ],
 }))
 
