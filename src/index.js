@@ -3,23 +3,29 @@ import dotenv from "dotenv";
 import { app } from "./app.js";
 
 dotenv.config({
-    path: "./.env"
+    path: "./.env",
 });
 
 const PORT = process.env.PORT || 6000;
 
-connectDB()
-    .then(() => {
-        app.listen(PORT);
-    })
-    .catch(() => {
+const startServer = async () => {
+    try {
+        await connectDB();
+
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    } catch (error) {
         process.exit(1);
-    });
+    }
+};
 
-process.on("unhandledRejection", () => {
+process.on("uncaughtException", (error) => {
     process.exit(1);
 });
 
-process.on("uncaughtException", () => {
+process.on("unhandledRejection", (error) => {
     process.exit(1);
 });
+
+startServer();

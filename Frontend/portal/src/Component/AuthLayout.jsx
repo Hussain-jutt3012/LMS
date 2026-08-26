@@ -1,21 +1,40 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import {useNavigate} from "react-router"
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
-function AuthLayout({authentication = true, children}) {
-    const [Loader, setLoader] = useState(true)
-    const authStatus = useSelector((state) => state.auth.status)
-    const navigate = useNavigate()
+function AuthLayout({ authentication = true, children }) {
+    const authStatus = useSelector(
+        (state) => state.auth.status
+    );
+
+    const isLoading = useSelector(
+        (state) => state.auth.isLoading
+    );
+
+    const navigate = useNavigate();
+
     useEffect(() => {
-        if(authentication && authStatus !== authentication){
-           navigate("/login")
-        } else if(!authentication && authStatus !== authentication){
-            useNavigate("/")
-            setLoader(false)
+        if (isLoading) return;
+
+        if (authentication && !authStatus) {
+            navigate("/login");
         }
-    }, [authStatus, navigate, authentication])
-    return Loader ? (<div>Loading</div>) : ({children})
+
+        if (!authentication && authStatus) {
+            navigate("/");
+        }
+    }, [
+        authentication,
+        authStatus,
+        isLoading,
+        navigate,
+    ]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    return children;
 }
 
-export default AuthLayout
+export default AuthLayout;

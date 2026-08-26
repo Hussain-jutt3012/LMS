@@ -307,7 +307,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Get Current User is not found")
     }
 
-    return res.status(200).json(new ApiResponse(200, "GetCurrent User Fetched SucessFully"))
+    return res.status(200).json(new ApiResponse(200, user, "GetCurrent User Fetched SucessFully"))
 })
 
 const UpdateAccountDetails = asyncHandler(async (req, res) => {
