@@ -1,4 +1,4 @@
-Gname: LMS CI
+name: LMS CI
 
 on:
   push:
