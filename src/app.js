@@ -34,6 +34,6 @@ app.use("/api/v1/subjects", subjectRouter);
 app.use("/api/v1/attendance", attendanceRouter);
 app.use("/api/v1/result", resultRouter);
 app.use("/api/v1/upload", uploadRouter);
-app.use("/api/v1/enrollement", EnrollementRouter);
+app.use("/api/v1/enrollment", EnrollementRouter);
 
 export { app };
