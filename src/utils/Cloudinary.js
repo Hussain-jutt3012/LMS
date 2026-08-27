@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
-dotenv.config();
-
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+import fs from "fs/promises";
+
+dotenv.config();
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -11,12 +11,11 @@ cloudinary.config({
 });
 
 const UpLoadOnCloudinary = async (localFilePath) => {
+    if (!localFilePath) {
+        throw new Error("Cloudinary upload failed: File path is required");
+    }
+
     try {
-
-        if (!localFilePath) {
-            return null;
-        }
-
         const response = await cloudinary.uploader.upload(
             localFilePath,
             {
@@ -24,32 +23,19 @@ const UpLoadOnCloudinary = async (localFilePath) => {
             }
         );
 
-        console.log(
-            "File uploaded successfully:",
-            response.secure_url
-        );
-
-        if (fs.existsSync(localFilePath)) {
-            fs.unlinkSync(localFilePath);
-        }
-
         return response;
-
     } catch (error) {
-
-        console.log(
-            "Cloudinary Upload Error:",
-            error.message
+        throw new Error(
+            `Cloudinary upload failed: ${error.message}`
         );
-
-        if (
-            localFilePath &&
-            fs.existsSync(localFilePath)
-        ) {
-            fs.unlinkSync(localFilePath);
+    } finally {
+        if (localFilePath) {
+            try {
+                await fs.unlink(localFilePath);
+            } catch (error) {
+                // File may already be deleted
+            }
         }
-
-        return null;
     }
 };
 
