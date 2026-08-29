@@ -160,8 +160,11 @@ const UserLogin = asyncHandler(async (req, res) => {
     }
 
     const user = await User.findOne({
-        $or: [{ username, email }]
-    })
+        $or: [
+            { username: username },
+            { email: email }
+        ]
+    });
 
     if (!user) {
         throw new ApiError(404, "User is not found")
@@ -169,6 +172,9 @@ const UserLogin = asyncHandler(async (req, res) => {
 
     const ispasswordCorrect = await user.isPasswordCorrect(password)
 
+    console.log("USER FOUND:", user);
+    console.log("PASSWORD FROM DB:", user.password);
+    console.log("PASSWORD FROM REQUEST:", password);
 
     if (!ispasswordCorrect) {
         throw new ApiError(400, "password is incorrect")
@@ -385,7 +391,7 @@ const fetchallStudent = asyncHandler(async (req, res) => {
 
 const blockStudent = asyncHandler(async (req, res) => {
 
-    const { studentid, userId }  = req.params
+    const { studentid, userId } = req.params
 
     const userRequest = await User.findById(studentid)
 
