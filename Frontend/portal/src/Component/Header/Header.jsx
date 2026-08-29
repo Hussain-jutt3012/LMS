@@ -80,7 +80,7 @@ function Header() {
 
             // Backend Logout
             await axios.post(
-                "http://localhost:4000/api/v1/users/logout",
+                `${import.meta.env.VITE_API_URL}/api/v1/users/logout`,
                 {},
                 {
                     withCredentials: true,

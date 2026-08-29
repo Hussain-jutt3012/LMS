@@ -21,8 +21,8 @@ import GetStudentResult from './Component/Student/GetStudentResult.jsx'
 import GetStudent from './Component/Admin/GetStudent.jsx'
 import StudentEnrollement from './Component/Admin/StudentEnrollement.jsx'
 import GetStudentEnrolled from './Component/Student/GetStudentEnrolled.jsx'
-import SubjectRegister  from './Component/SubjectRegister/SubjectRegister.jsx'
 import Assignment from './Component/Teacher/Assignment.jsx'
+import SubjectRegister from './Component/Student/SubjectRegister.jsx'
 
 
 const router = createBrowserRouter(

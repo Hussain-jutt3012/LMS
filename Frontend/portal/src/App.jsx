@@ -17,7 +17,7 @@ function App() {
         const restoreUser = async () => {
             try {
                 const response = await axios.get(
-                    "http://localhost:4000/api/v1/users/current-user",
+                    `${import.meta.env.VITE_API_URL}/api/v1/users/current-user`,
                     {
                         withCredentials: true,
                     }
