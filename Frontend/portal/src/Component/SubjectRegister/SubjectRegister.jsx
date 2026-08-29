@@ -60,7 +60,7 @@ function SubjectRegister() {
 
 
             const response = await axios.post(
-                `http://localhost:4000/api/v1/subjects/${userId}/subject-create`,
+                `${import.meta.env.VITE_API_URL}/api/v1/subjects/${userId}/subject-create`,
                 formattedData,
                 {
                     withCredentials: true,

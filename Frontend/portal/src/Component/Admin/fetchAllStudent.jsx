@@ -45,7 +45,7 @@ function FetchAllStudent() {
       setLoading(true);
 
       const response = await axios.post(
-        `http://localhost:4000/api/v1/users/${userId}/block-portal`,
+        `${import.meta.env.VITE_API_URL}/api/v1/users/${userId}/block-portal`,
         data,
         {
           withCredentials: true,

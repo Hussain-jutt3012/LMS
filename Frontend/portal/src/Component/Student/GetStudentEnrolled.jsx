@@ -12,7 +12,7 @@ function GetStudentEnrolled() {
 
         try {
             const response = await axios.get(
-                "http://localhost:4000/api/v1/enrollement/get-enrolled-data",
+                `${import.meta.env.VITE_API_URL}/api/v1/enrollement/get-enrolled-data`,
                 {
                     withCredentials: true,
                 }

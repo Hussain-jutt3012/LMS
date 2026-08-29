@@ -27,7 +27,7 @@ function Signup() {
 
         try {
             await axios.post(
-                `http://localhost:4000/api/v1/users/${userId}/register-user`,
+                `${import.meta.env.VITE_API_URL}/api/v1/users/${userId}/register-user`,
                 data,
                 {
                     withCredentials: true,

@@ -12,7 +12,7 @@ function GetAttendance() {
 
     try {
       const response = await axios.get(
-        "http://localhost:4000/api/v1/attendance/get-attendance-data",
+        `${import.meta.env.VITE_API_URL}/api/v1/attendance/get-attendance-data`,
         {
           withCredentials: true,
         }

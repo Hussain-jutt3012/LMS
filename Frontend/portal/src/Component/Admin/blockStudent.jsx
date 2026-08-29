@@ -53,7 +53,7 @@ function BlockStudent() {
             });
 
             const response = await axios.post(
-                `http://localhost:4000/api/v1/users/${userId}/${studentid}/portal-block`,
+                `${import.meta.env.VITE_API_URL}/users/${userId}/${studentid}/portal-block`,
                 {},
                 {
                     withCredentials: true,

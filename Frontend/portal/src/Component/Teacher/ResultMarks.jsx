@@ -85,7 +85,7 @@ function ResultMarks() {
 
         try {
             const response = await axios.post(
-                `http://localhost:4000/api/v1/result/${userId}/result-remarks`,
+                `${import.meta.env.VITE_API_URL}/api/v1/result/${userId}/result-remarks`,
                 data,
                 {
                     withCredentials: true,
@@ -128,7 +128,7 @@ function ResultMarks() {
 
         try {
             const response = await axios.post(
-                `http://localhost:4000/api/v1/result/${userId}/Enterd-result`,
+                `${import.meta.env.VITE_API_URL}/api/v1/result/${userId}/Enterd-result`,
                 data,
                 {
                     withCredentials: true,

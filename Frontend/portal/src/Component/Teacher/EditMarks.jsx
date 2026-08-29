@@ -27,7 +27,7 @@ function EditMarks() {
             setIsLoading(true);
 
             const response = await axios.patch(
-                `http://localhost:4000/api/v1/result/${teacherId}/${studentId}/update-resultMarks`,
+                `${import.meta.env.VITE_API_URL}/api/v1/result/${teacherId}/${studentId}/update-resultMarks`,
                 data,
                 {
                     withCredentials: true,

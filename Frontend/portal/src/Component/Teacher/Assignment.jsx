@@ -42,7 +42,7 @@ function Assignment() {
 
 
             const response = await axios.post(
-                `http://localhost:4000/api/v1/teacher/${teacherId}/upload`,
+                `${import.meta.env.VITE_API_URL}/api/v1/teacher/${teacherId}/upload`,
                 formData,
                 {
                     withCredentials: true,

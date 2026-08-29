@@ -82,7 +82,7 @@ function MarksAttendance() {
 
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/v1/attendance/${userId}/attendance-mark`,
+        `${import.meta.env.VITE_API_URL}/api/v1/attendance/${userId}/attendance-mark`,
         data,
         {
           withCredentials: true,
@@ -124,7 +124,7 @@ function MarksAttendance() {
 
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/v1/attendance/${userId}/mark-Attendance`,
+        `${import.meta.env.VITE_API_URL}/api/v1/attendance/${userId}/mark-Attendance`,
         data,
         {
           withCredentials: true,

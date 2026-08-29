@@ -52,7 +52,7 @@ function DeleteStudent() {
             setDeleteLoading(true);
 
             const response = await axios.delete(
-                `http://localhost:4000/api/v1/users/${userId}/${studentId}/delete-student`,
+                `${import.meta.env.VITE_API_URL}/api/v1/users/${userId}/${studentId}/delete-student`,
                 {
                     data,
                     withCredentials: true,
@@ -86,7 +86,7 @@ function DeleteStudent() {
             setLoading(true);
 
             const response = await axios.patch(
-                `http://localhost:4000/api/v1/users/${userId}/${studentId}/update-account`,
+                `${import.meta.env.VITE_API_URL}/api/v1/users/${userId}/${studentId}/update-account`,
                 data,
                 {
                     withCredentials: true,

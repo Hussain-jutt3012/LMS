@@ -27,7 +27,7 @@ function EditAttendance() {
       setIsLoading(true);
 
       const response = await axios.patch(
-        `http://localhost:4000/api/v1/attendance/${teacherId}/${studentId}/edit-attendance`,
+        `${import.meta.env.VITE_API_URL}/api/v1/attendance/${teacherId}/${studentId}/edit-attendance`,
         data,
         {
           withCredentials: true,
