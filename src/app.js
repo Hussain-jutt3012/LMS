@@ -11,7 +11,8 @@ app.use(
         origin: [
             "http://localhost:5173",
             "https://my-e02z7m63o-my-team-af88.vercel.app",
-            "https://my-lms-pearl.vercel.app"
+            "https://my-lms-pearl.vercel.app",
+            "https://my-lms-git-main-my-team-af88.vercel.appgit"
         ],
     })
 );
