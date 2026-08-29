@@ -44,7 +44,7 @@ const router = createBrowserRouter(
       <Route path='/:userId/get-studentData' element={<GetStudent />} />
       <Route path='/:userId/:studentId/get-enrolled-student' element={<StudentEnrollement />} />
       <Route path='/get-enrolled-data' element={<GetStudentEnrolled/>} />
-      <Route path='/:userId/subject-register' element={<SubjectRegister/>} />
+      <Route path='/:userId/subject-create' element={<SubjectRegister/>} />
       <Route path='/:teacherId/assignment' element={<Assignment/>} />
     </Route>
   )
