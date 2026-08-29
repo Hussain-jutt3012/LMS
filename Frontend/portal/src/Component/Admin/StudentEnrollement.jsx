@@ -25,7 +25,7 @@ function StudentEnrollement() {
       setMessageType("");
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/v1/enrollement/${userId}/${studentId}/get-student-enrollement`,
+        `${import.meta.env.VITE_API_URL}/api/v1/enrollment/${userId}/${studentId}/get-student-enrollement`,
         formData,
         {
           withCredentials: true,
