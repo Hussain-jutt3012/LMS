@@ -10,9 +10,7 @@ app.use(
         methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
         origin: [
             "http://localhost:5173",
-            "http://localhost:4173",
-            "https://lms-my-team-af88.vercel.app",
-            "https://lms-git-main-my-team-af88.vercel.app",
+            "https://my-e02z7m63o-my-team-af88.vercel.app",
         ],
     })
 );
