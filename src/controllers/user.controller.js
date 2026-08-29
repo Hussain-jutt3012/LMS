@@ -172,9 +172,6 @@ const UserLogin = asyncHandler(async (req, res) => {
 
     const ispasswordCorrect = await user.isPasswordCorrect(password)
 
-    console.log("USER FOUND:", user);
-    console.log("PASSWORD FROM DB:", user.password);
-    console.log("PASSWORD FROM REQUEST:", password);
 
     if (!ispasswordCorrect) {
         throw new ApiError(400, "password is incorrect")
@@ -195,7 +192,8 @@ const UserLogin = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: "None",
     }
 
     return res
